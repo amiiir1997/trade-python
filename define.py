@@ -1,7 +1,7 @@
 symbolnumber = 3
 symbolname=["BTCUSDT" ,"BNBUSDT" , "ETHUSDT"]
 symbollimit = ['%1.3f',"%3.2f","%3.3f"]
-
+symbolpricelimit = ['%5.2f',"%3.3f","%4.2f"]
 
 ema52 = 0
 ema24 = 1

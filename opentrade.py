@@ -7,18 +7,18 @@ import time
 import limitorders
 import balance
 
-def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit):
+def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit ,symbolpricelimit):
 	if signal == "BUY":
 		position[define.position] = "LONG"
 		if(sleep == 0 and intrade== 0):
 			position[define.sleep] = 0
 		else:
-			position[define.sleep] = 0
+			position[define.sleep] = 1
 		position[define.intrade] = 1
 		position[define.openprice] = data[define.price]
 		position[define.highlimit] = data[define.price] * (1+define.highlimitpercent)
 		position[define.lowlimit] = data[define.price] * (1-define.lowlimitpercent)
-		position[define.quantity] = symbollimit % (balancemoney*100/100/data[define.price] * define.leverage)
+		position[define.quantity] = symbollimit % (balancemoney*99.5/100/data[define.price] * define.leverage)
 		file.write("ofline buy set on")
 		file.write(str(symbol))
 		file.write('\n')
@@ -37,7 +37,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 					print('connection error')
 					print(e)
 					i = 0
-			limitorders.limitorders(symbol ,"%5.2f" % position[define.lowlimit] ,"%5.2f" % position[define.highlimit], "LONG" , position[define.quantity] , file)
+			limitorders.limitorders(symbol ,symbolpricelimit % position[define.lowlimit] ,symbolpricelimit % position[define.highlimit], "LONG" , position[define.quantity] , file)
 			file.write("online buy set on")
 			file.write(str(symbol))
 			file.write('\n')
@@ -60,12 +60,12 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		if(sleep == 0 and intrade== 0):
 			position[define.sleep] = 0
 		else:
-			position[define.sleep] = 0
+			position[define.sleep] = 1
 		position[define.intrade] = 1
 		position[define.openprice] = data[define.price]
 		position[define.highlimit] = data[define.price] * (1+define.lowlimitpercent)
 		position[define.lowlimit] = data[define.price] * (1-define.highlimitpercent)
-		position[define.quantity] = symbollimit % (balancemoney*(100/100)/data[define.price]* define.leverage)
+		position[define.quantity] = symbollimit % (balancemoney*(99.5/100)/data[define.price]* define.leverage)
 		file.write("ofline sell set on")
 		file.write(str(symbol))
 		file.write('\n')
@@ -84,7 +84,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 					print('connection error')
 					print(e)
 					i = 0
-			limitorders.limitorders(symbol ,"%5.2f" % position[define.lowlimit] ,"%5.2f" % position[define.highlimit] , "SHORT" , position[define.quantity] , file)
+			limitorders.limitorders(symbol ,symbolpricelimit % position[define.lowlimit] ,symbolpricelimit % position[define.highlimit] , "SHORT" , position[define.quantity] , file)
 			file.write("online sell set on")
 			file.write(str(symbol))
 			file.write('\n')

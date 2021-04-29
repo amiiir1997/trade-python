@@ -20,7 +20,7 @@ def core( data ,position , signalresult , sleep ,balance , intrade ,file):
 
 	for i in range(define.symbolnumber):
 		if(signalresult[i] != "NOTHING"):
-			[ position[i] , intrade , balance ] = opentrade.opentrade(define.symbolname[i] , data[i] ,signalresult[i], position[i] , sleep[i],balance , intrade,file ,define.symbollimit[i])
+			[ position[i] , intrade , balance ] = opentrade.opentrade(define.symbolname[i] , data[i] ,signalresult[i], position[i] , sleep[i],balance , intrade,file ,define.symbollimit[i] ,define.symbolpricelimit[i])
 			signalresult[i] = 'NOTHING'
 
 	return [data ,position , signalresult , sleep , intrade , nextcall]
