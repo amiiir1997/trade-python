@@ -47,13 +47,17 @@ while 1 :
                 print('connection error')
                 print(e)
                 i=0
-        if(allorder == 1):
+        if(allorder != 2 and intrade == 1):
             if(symbolintrade != -1):
+                print("limit close")
+                print(symbolintrade)
                 cancelorders.cancelorders(define.symbolname[symbolintrade] , file)
                 position[symbolintrade][define.sleep] = 1
                 symbolintrade = -1
                 intrade=0
-            
+                print("limit close")
+                print(symbolintrade)
+
 
         i = 0
         while i == 0:

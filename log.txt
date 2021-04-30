@@ -1,0 +1,34 @@
+2021-04-30 17:47:55.176771
+Balance = 6501.22246537
+BTCUSDT histogram = -20.83261231592406
+signal sell on BTCUSDT
+BNBUSDT histogram = -0.511578209324857
+signal sell on BNBUSDT
+ETHUSDT histogram = -0.8231565803914713
+signal sell on ETHUSDT
+ofline sell set onBTCUSDT
+opentrade answer = <binance_f.model.order.Order object at 0xb6d49610>
+first limitorder answer = <binance_f.model.order.Order object at 0xb6d495e0>
+second limitorder answer = <binance_f.model.order.Order object at 0xb6d49790>
+online sell set onBTCUSDT
+Balance = 6493.46382985
+ofline sell set onBNBUSDT
+ofline sell set onETHUSDT
+2021-04-30 17:48:55.226599
+Balance = 6491.35717422
+BTCUSDT histogram = -13.929731101498575
+BNBUSDT histogram = -0.19850559945848834
+ETHUSDT histogram = 0.3617472921882823
+signal buy on ETHUSDT
+ofline sell close onETHUSDT
+ofline buy set onETHUSDT
+opentrade answer = <binance_f.model.order.Order object at 0xb6d49fa0>
+first limitorder answer = <binance_f.model.order.Order object at 0xb6d49ec8>
+second limitorder answer = <binance_f.model.order.Order object at 0xb6d49dc0>
+online buy set onETHUSDT
+Balance = 6483.60441996
+2021-04-30 17:49:55.112603
+Balance = 6477.99624752
+BTCUSDT histogram = -5.19897055669248
+BNBUSDT histogram = 0.010487215549572326
+signal buy on BNBUSDT
