@@ -7,7 +7,7 @@ import time
 import cancelorders
 import balance
 
-def closetrade(symbol , data , position , intrade , balancemoney , file ,signal):
+def closetrade(symbol , data , position , intrade , balancemoney , file ,signal , symbolintrade):
 	if signal == "BUY" and position[define.intrade] == 1:
 		position[define.intrade] = 0
 		position[define.intrade] = 0
@@ -18,6 +18,7 @@ def closetrade(symbol , data , position , intrade , balancemoney , file ,signal)
 		file.write('\n')
 		print("ofline sell close on")
 		if position[define.sleep] == 0 and intrade == 1:
+			symbolintrade = -1
 			print (1)
 			intrade = 0
 			cancelorders.cancelorders(symbol , file)
@@ -62,6 +63,7 @@ def closetrade(symbol , data , position , intrade , balancemoney , file ,signal)
 		position[define.closeprice] = data[define.price]
 		position[define.lasttraderesult] = -1 *(position[define.closeprice] - position[define.openprice])/position[define.openprice]
 		if position[define.sleep] == 0 and intrade == 1:
+			symbolintrade = -1
 			intrade = 0
 			cancelorders.cancelorders(symbol , file)
 			request_client = RequestClient(api_key=define.api_key, secret_key=define.secret_key)
@@ -95,5 +97,5 @@ def closetrade(symbol , data , position , intrade , balancemoney , file ,signal)
 					print('connection error')
 					print(e)
 					i = 0
-	return [ position , intrade , balancemoney]
+	return [ position , intrade , balancemoney , symbolintrade]
 

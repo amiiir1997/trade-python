@@ -15,6 +15,7 @@ balancemoney = 0
 intrade = 0
 intradesymbol=-1
 filetime = 0
+symbolintrade = -1
 file = open('log.txt' , 'w')
 
 
@@ -33,7 +34,7 @@ while 1 :
     print(now)
     timestamp = datetime.timestamp(now)*1000
     if(timestamp > nextcall):
-        [ data ,position , signal , sleep , intrade ,nextcall] = core.core( data ,position , signal , sleep ,balancemoney , intrade ,file)
+        [ data ,position , signal , sleep , intrade ,nextcall , symbolintrade] = core.core( data ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade)
         fileflag = 0
         orderflag = 0
     if(timestamp > nextcall - 2000 and orderflag == 0):
@@ -47,10 +48,12 @@ while 1 :
                 print(e)
                 i=0
         if(allorder == 1):
-            for i in range(define.symbolnumber):
-                cancelorders.cancelorders(define.symbolname[i] , file)
-            intrade=0
-            #position[intradesymbol][define.intrade]=0
+            if(symbolintrade != -1):
+                cancelorders.cancelorders(define.symbolname[symbolintrade] , file)
+                position[symbolintrade][define.sleep] = 1
+                symbolintrade = -1
+                intrade=0
+            
 
         i = 0
         while i == 0:

@@ -7,7 +7,7 @@ import time
 import limitorders
 import balance
 
-def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit ,symbolpricelimit):
+def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit ,symbolpricelimit , symbolnum , symbolintrade):
 	if signal == "BUY":
 		position[define.position] = "LONG"
 		if(sleep == 0 and intrade== 0):
@@ -23,6 +23,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		file.write(str(symbol))
 		file.write('\n')
 		if sleep == 0 and intrade == 0:
+			symbolintrade = symbolnum
 			intrade = 1
 			request_client = RequestClient(api_key=define.api_key, secret_key=define.secret_key)
 			i = 0
@@ -70,6 +71,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		file.write(str(symbol))
 		file.write('\n')
 		if sleep == 0 and intrade == 0:
+			symbolintrade = symbolnum
 			intrade = 1
 			request_client = RequestClient(api_key=define.api_key, secret_key=define.secret_key)
 			i = 0
@@ -102,5 +104,5 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 					i = 0
 
 
-	return [position ,intrade, balancemoney]
+	return [position ,intrade, balancemoney , symbolintrade]
 
