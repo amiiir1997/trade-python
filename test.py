@@ -1,10 +1,11 @@
-from binance_f import RequestClient
-from binance_f.constant.test import *
-from binance_f.base.printobject import *
-from binance_f.model.constant import *
+import requests
 import define
 
-request_client = RequestClient(api_key=define.api_key, secret_key=define.secret_key)
-result = request_client.post_order(symbol="BTCUSDT", side=OrderSide.SELL, ordertype=OrderType.MARKET,positionSide="BOTH", reduceOnly='true',quantity=0.01)
-
+r = requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : "BTCUSDT" , 'interval' : '5m' , 'limit' : 500})
+r = r.json()
+x52= 2 / 53
+ema52 = 0
+for i in range (499):
+    ema52 = ema52*(1-x52) + float(r[i][4])*x52
+print(ema52)
 

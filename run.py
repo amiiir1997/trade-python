@@ -26,7 +26,6 @@ for i in range(define.symbolnumber):
 	signal.append('NOTHING')
 	sleep.append(0)
 
-dataflag = 0
 fileflag = 0
 orderflag = 0
 while 1 :
@@ -37,7 +36,6 @@ while 1 :
         [ data ,position , signal , sleep , intrade ,nextcall , symbolintrade] = core.core( data ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade)
         fileflag = 0
         orderflag = 0
-        dataflag = 0
     if(timestamp > nextcall - 2000 and orderflag == 0):
         i = 0
         while i == 0:
@@ -79,8 +77,4 @@ while 1 :
         file.close()
         file = open('log.txt', 'a')
         fileflag = 1
-    if (timestamp > nextcall - 12000 and dataflag == 0 ):
-        for i in range(define.symbolnumber):
-            [data[i], ignore] =initial_data.initial_data(define.symbolname[i])
-        dataflag = 1
     time.sleep(0.5)

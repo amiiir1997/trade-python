@@ -30,6 +30,7 @@ buy = 1
 highlimitpercent = 0.03
 lowlimitpercent = 0.05
 leverage = 3
+interval = '5m'
 
 
 api_key = "6618977fb53e6a861261d959837841cc0e91e03393b58e83d34cfb042aa95592"
