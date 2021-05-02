@@ -6,6 +6,14 @@ from binance_f.model.constant import *
 import time
 import limitorders
 import balance
+import math
+
+
+def round_down(n, decimals=0):
+    multiplier = 10 ** decimals
+    return math.floor(n * multiplier) / multiplier
+    
+
 
 def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit ,symbolpricelimit , symbolnum , symbolintrade):
 	if signal == "BUY":
@@ -18,7 +26,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		position[define.openprice] = data[define.price]
 		position[define.highlimit] = data[define.price] * (1+define.highlimitpercent)
 		position[define.lowlimit] = data[define.price] * (1-define.lowlimitpercent)
-		position[define.quantity] = symbollimit % (balancemoney*99.5/100/data[define.price] * define.leverage)
+		position[define.quantity] = round_down( (balancemoney*99.5/100/data[define.price] * define.leverage),symbollimit)
 		file.write("ofline buy set on")
 		file.write(str(symbol))
 		file.write('\n')
@@ -66,7 +74,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		position[define.openprice] = data[define.price]
 		position[define.highlimit] = data[define.price] * (1+define.lowlimitpercent)
 		position[define.lowlimit] = data[define.price] * (1-define.highlimitpercent)
-		position[define.quantity] = symbollimit % (balancemoney*(99.5/100)/data[define.price]* define.leverage)
+		position[define.quantity] =  round_down( (balancemoney*99.5/100/data[define.price] * define.leverage),symbollimit)
 		file.write("ofline sell set on")
 		file.write(str(symbol))
 		file.write('\n')
