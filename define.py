@@ -2,7 +2,7 @@ import key
 
 symbolnumber = 5
 symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT"]
-symbollimit = [2,0,1,1,2]
+symbollimit = [2 , 0 , 1 , 1 , 2]
 symbolpricelimit = ['%3.2f',"%1.5f","%2.4f","%1.4f","%1.3f"]
 
 
@@ -36,9 +36,9 @@ quantity = 9
 sell = 0
 buy = 1
 
-highlimitpercent = 0.03
+highlimitpercent = 0.008
 lowlimitpercent = 0.05
-leverage = 3
+leverage = 1
 intervalsmall = '5m'
 intervalbig = "30m"
 
