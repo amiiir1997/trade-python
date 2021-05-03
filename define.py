@@ -3,6 +3,7 @@ import key
 symbolnumber = 5
 symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT"]
 symbollimit = [2 , 0 , 1 , 1 , 2]
+simbollimitstring = ["%.2f" , "%.0f" , "%.1f" , "%.1f" , "%.2f"]
 symbolpricelimit = ['%3.2f',"%1.5f","%2.4f","%1.4f","%1.3f"]
 
 

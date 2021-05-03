@@ -15,7 +15,7 @@ def round_down(n, decimals=0):
     
 
 
-def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit ,symbolpricelimit , symbolnum , symbolintrade):
+def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, file ,symbollimit ,symbolpricelimit , symbolnum , symbolintrade , simbollimitstring):
 	if signal == "BUY":
 		position[define.position] = "LONG"
 		if(sleep == 0 and intrade== 0):
@@ -26,7 +26,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		position[define.openprice] = data[define.price]
 		position[define.highlimit] = data[define.price] * (1+define.highlimitpercent)
 		position[define.lowlimit] = data[define.price] * (1-define.lowlimitpercent)
-		position[define.quantity] = math.floor((balancemoney*99.5/100/data[define.price] * define.leverage) * (10 **symbollimit))/(10 **symbollimit)
+		position[define.quantity] = simbollimitstring % (math.floor((balancemoney*99.5/100/data[define.price] * define.leverage) * (10 **symbollimit))/(10 **symbollimit))
 		file.write("ofline buy set on")
 		file.write(str(symbol))
 		file.write('\n')
@@ -74,7 +74,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 		position[define.openprice] = data[define.price]
 		position[define.highlimit] = data[define.price] * (1+define.lowlimitpercent)
 		position[define.lowlimit] = data[define.price] * (1-define.highlimitpercent)
-		position[define.quantity] =  math.floor((balancemoney*99.5/100/data[define.price] * define.leverage) * (10 **symbollimit))/(10 **symbollimit)
+		position[define.quantity] =  simbollimitstring % (math.floor((balancemoney*99.5/100/data[define.price] * define.leverage) * (10 **symbollimit))/(10 **symbollimit))
 		file.write("ofline sell set on")
 		file.write(str(symbol))
 		file.write('\n')
