@@ -39,7 +39,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 				try:
 					result = request_client.post_order(symbol=symbol, side=OrderSide.BUY, ordertype=OrderType.MARKET, positionSide="BOTH", quantity=position[define.quantity])
 					file.write("opentrade answer = ")
-					file.write(str(result.json()))
+					file.write(str(result))
 					file.write("\n")
 					i = 1
 				except Exception as e:
@@ -87,7 +87,7 @@ def opentrade(symbol , data ,signal, position , sleep , balancemoney ,intrade, f
 				try:
 					result = request_client.post_order(symbol=symbol, side=OrderSide.SELL, ordertype=OrderType.MARKET, positionSide="BOTH", quantity=position[define.quantity])
 					file.write("opentrade answer = ")
-					file.write(str(result.json()))
+					file.write(str(result))
 					file.write("\n")
 					i = 1
 				except Exception as e:
