@@ -30,7 +30,7 @@ def closetrade(symbol , data , position , intrade , balancemoney , file ,signal 
 					result = request_client.post_order(symbol=symbol, side=OrderSide.BUY, ordertype=OrderType.MARKET,positionSide="BOTH", reduceOnly='true',quantity=position[define.quantity])
 					print (3)
 					file.write("closetrade answer = ")
-					file.write(str(result))
+					file.write(str(result.json()))
 					file.write("\n")
 					i = 1
 				except Exception as e:
@@ -75,7 +75,7 @@ def closetrade(symbol , data , position , intrade , balancemoney , file ,signal 
 					result = request_client.post_order(symbol=symbol, side=OrderSide.SELL, ordertype=OrderType.MARKET, positionSide="BOTH", reduceOnly='true',quantity=position[define.quantity])
 					print (3)
 					file.write("closetrade answer = ")
-					file.write(str(result))
+					file.write(str(result.json()))
 					file.write("\n")
 					i = 1
 				except Exception as e:

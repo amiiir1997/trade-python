@@ -1,11 +1,5 @@
-Balance = 9758.374787
-2021-05-02 15:34:59.412615
-BTCUSDT histogram = 71.9640748445777
+2021-05-03 04:39:55.055363
+Balance = 10000.0
+BTCUSDT histogram = 17.44400205079866
 signal buy on BTCUSDT
-BNBUSDT histogram = 1.3854018619279174
-signal buy on BNBUSDT
-ETHUSDT histogram = 5.912054159919245
-signal buy on ETHUSDT
 ofline buy set onBTCUSDT
-ofline buy set onBNBUSDT
-ofline buy set onETHUSDT

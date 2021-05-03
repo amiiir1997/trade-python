@@ -12,7 +12,7 @@ def limitorders (symbol , lowlimitprice , highlimitprice , position , quantity,f
 			try:
 				highresult = request_client.post_order(symbol=symbol, side=OrderSide.SELL, ordertype=OrderType.LIMIT, closePosition=False, positionSide="BOTH" , price =highlimitprice , quantity=quantity ,timeInForce = "GTC" ,reduceOnly = 'true')
 				file.write("first limitorder answer = ")
-				file.write(str(highresult))
+				file.write(str(highresult.json()))
 				file.write("\n")
 				i=1
 			except Exception as e:
@@ -23,7 +23,7 @@ def limitorders (symbol , lowlimitprice , highlimitprice , position , quantity,f
 			try:
 				lowresult = request_client.post_order(symbol=symbol, side=OrderSide.SELL, ordertype=OrderType.STOP_MARKET, closePosition=False, positionSide="BOTH" , stopPrice =lowlimitprice , quantity=quantity , timeInForce = "GTC" , reduceOnly = 'true')
 				file.write("second limitorder answer = ")
-				file.write(str(lowresult))
+				file.write(str(lowresult.json()))
 				file.write("\n")
 				i=1
 			except Exception as e:
@@ -36,7 +36,7 @@ def limitorders (symbol , lowlimitprice , highlimitprice , position , quantity,f
 			try:
 				highresult = request_client.post_order(symbol=symbol, side=OrderSide.BUY, ordertype=OrderType.STOP_MARKET, closePosition=False, positionSide="BOTH" , stopPrice =highlimitprice , quantity=quantity ,timeInForce = "GTC" ,reduceOnly = 'true')
 				file.write("first limitorder answer = ")
-				file.write(str(highresult))
+				file.write(str(highresult.json()))
 				file.write("\n")
 				i=1
 			except Exception as e:
@@ -47,7 +47,7 @@ def limitorders (symbol , lowlimitprice , highlimitprice , position , quantity,f
 			try:
 				lowresult = request_client.post_order(symbol=symbol, side=OrderSide.BUY, ordertype=OrderType.LIMIT, closePosition=False, positionSide="BOTH" , price =lowlimitprice , quantity=quantity , timeInForce = "GTC" , reduceOnly = 'true')
 				file.write("second limitorder answer = ")
-				file.write(str(lowresult))
+				file.write(str(lowresult.json()))
 				file.write("\n")
 				i=1
 			except Exception as e:

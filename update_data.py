@@ -2,11 +2,11 @@ import define
 import requests
 
 
-def update_data(symbol ,data):
+def update_data(symbol ,data , timestamp , nextcallbig , databig):
 	i = 0
 	while i == 0:
 		try:
-			result =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.interval , 'limit' : 2}).json()
+			result =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalsmall , 'limit' : 2}).json()
 			i = 1
 		except Exception as e:
 			print('connection error')
@@ -30,7 +30,26 @@ def update_data(symbol ,data):
 	data[define.lastramp] = data[define.ramp]
 	data[define.ramp] = (data[define.macd][3]-data[define.macd][2])*3 + (data[define.macd][3]-data[define.macd][1]) + (data[define.macd][3]-data[define.macd][0])/3
 
-	return [data , nextcall]
+	if (timestamp > nextcallbig + 90):
+		i = 0
+		while i == 0:
+			try:
+				result =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalbig , 'limit' : 2}).json()
+				i = 1
+			except Exception as e:
+				print('connection error')
+				print(e)
+				i = 0
+
+		databig[define.bigema52] = databig[define.bigema52]*(1-x52) + float(resultbig[0][4])*x52
+		databig[define.bigema24] = databig[define.bigema24]*(1-x24) + float(resultbig[0][4])*x24
+		databig[define.bigsignal18] = [define.bigsignal18]*(1-x18) +  (databig[define.bigema24] - databig[define.bigema52])*x18
+		databig[define.biglasthistogram] = databig[define.bighistogram]
+		databig[define.bighistogram] = databig[define.bigema24] - databig[define.bigema52] - databig[define.bigsignal18]
+		nextcallbig = result[1][6]+1
+
+
+	return [data , nextcall , databig , nextcallbig]
 
 
 

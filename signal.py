@@ -1,6 +1,6 @@
 import define
 
-def signal(symbol ,data , position , signal, sleep , file):
+def signal(symbol ,data ,databig , position , signal, sleep , file):
 	histogram = data[define.ema24] - data[define.ema52] - data[define.signal18]
 	file.write(str(symbol))
 	file.write (' histogram = ')
@@ -13,7 +13,7 @@ def signal(symbol ,data , position , signal, sleep , file):
 		file.write(str(symbol))
 		file.write('\n')
 		sleep = 0
-		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.09:
+		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.09 or databig[define.biglasthistogram]  > databig[define.bighistogram]:
 			sleep =1
 	elif histogram < 0 and position[define.position] != "SHORT":
 		signal = 'SELL'
@@ -21,7 +21,7 @@ def signal(symbol ,data , position , signal, sleep , file):
 		file.write(str(symbol))
 		file.write('\n')
 		sleep = 0
-		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.09:
+		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.09 or databig[define.biglasthistogram]  < databig[define.bighistogram]:
 			sleep = 1
 
 

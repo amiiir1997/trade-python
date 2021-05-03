@@ -1,7 +1,10 @@
-symbolnumber = 3
-symbolname=["BTCUSDT" ,"BNBUSDT" , "ETHUSDT"]
-symbollimit = ['%1.3f',"%3.2f","%3.3f"]
-symbolpricelimit = ['%5.2f',"%3.3f","%4.2f"]
+import key
+
+symbolnumber = 5
+symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT"]
+symbollimit = [2,0,1,1,2]
+symbolpricelimit = ['%3.2f',"%1.5f","%2.4f","%1.4f","%1.3f"]
+
 
 ema52 = 0
 ema24 = 1
@@ -10,6 +13,12 @@ macd =3
 ramp = 4
 lastramp = 5
 price = 6
+
+bigema52 = 0
+bigema24 = 1
+bigsignal18 =2
+bighistogram = 3
+biglasthistogram = 4
 
 
 position = 0
@@ -30,11 +39,12 @@ buy = 1
 highlimitpercent = 0.03
 lowlimitpercent = 0.05
 leverage = 3
-interval = '5m'
+intervalsmall = '5m'
+intervalbig = "30m"
 
 
-api_key = "6618977fb53e6a861261d959837841cc0e91e03393b58e83d34cfb042aa95592"
-secret_key = "6396637569dfd1eada30cbce4127ee691261c10f76a2e7a298ed9f2159aa6b26"
+api_key = key.api_key
+secret_key = key.secret_key
 
 
 

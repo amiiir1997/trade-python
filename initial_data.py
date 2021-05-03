@@ -3,10 +3,19 @@ import define
 
 def initial_data(symbol):
 	data=[0,0,0,[0,0,0,0],0,0,0]
+	databig = [0,0,0,0,0]
 	i = 0
 	while i == 0:
 		try:
-			result =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.interval , 'limit' : 1000}).json()
+			resultsmall =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalsmall , 'limit' : 1000}).json()
+			i = 1
+		except:
+			print('connection error')
+			i = 0
+	i = 0
+	while i == 0:
+		try:
+			resultbig =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalbig , 'limit' : 1000}).json()
 			i = 1
 		except:
 			print('connection error')
@@ -21,16 +30,25 @@ def initial_data(symbol):
 
 
 	for i in range (999):
-		data[define.ema52] = data[define.ema52]*(1-x52) + float(result[i][4])*x52
-		data[define.ema24] = data[define.ema24]*(1-x24) + float(result[i][4])*x24
+		data[define.ema52] = data[define.ema52]*(1-x52) + float(resultsmall[i][4])*x52
+		data[define.ema24] = data[define.ema24]*(1-x24) + float(resultsmall[i][4])*x24
 		data[define.signal18] = data[define.signal18]*(1-x18) + (data[define.ema24]-data[define.ema52])*x18
 		data[define.macd][0] = data[define.macd][1] 
 		data[define.macd][1] = data[define.macd][2] 
 		data[define.macd][2] = data[define.macd][3] 
 		data[define.macd][3] = data[define.ema24]-data[define.ema52]
 		data[define.lastramp] = data[define.ramp]
-		data[define.price] = float(result[i][4])
+		data[define.price] = float(resultsmall[i][4])
 		data[define.ramp] = (data[define.macd][3]-data[define.macd][2])*3 + (data[define.macd][3]-data[define.macd][1]) + (data[define.macd][3]-data[define.macd][0])/3
 
-	nextcall = result[999][6]+1
-	return [data , nextcall]
+
+		databig[define.bigema52] = databig[define.bigema52]*(1-x52) + float(resultbig[i][4])*x52
+		databig[define.bigema24] = databig[define.bigema24]*(1-x24) + float(resultbig[i][4])*x24
+		databig[define.bigsignal18] = databig[define.bigsignal18]*(1-x18) +  (databig[define.bigema24] - databig[define.bigema52])*x18
+		databig[define.biglasthistogram] = databig[define.bighistogram]
+		databig[define.bighistogram] = databig[define.bigema24] - databig[define.bigema52] - databig[define.bigsignal18]
+
+
+	nextcallsmall = resultsmall[999][6]+1
+	nextcallbig = resultbig[999][6]+1
+	return [data , nextcallsmall , databig , nextcallbig]
