@@ -20,6 +20,7 @@ intradesymbol=-1
 filetime = 0
 symbolintrade = -1
 file = open('log.txt' , 'w')
+initialsignal = 1
 
 def update(symboli , datai , timestampi ,nextcallbigi , databigi):
 	global data
@@ -52,9 +53,10 @@ while 1 :
 			tdata[i].start()
 		for i in range(define.symbolnumber):
 			tdata[i].join()
-		[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade)
+		[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade , initialsignal)
 		fileflag = 0
 		orderflag = 0
+		initialsignal = 0
 	if(timestamp > nextcall - 2000 and orderflag == 0):
 		i = 0
 		while i == 0:
