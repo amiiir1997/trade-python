@@ -7,6 +7,7 @@ import getallorder
 import cancelorders
 import balance
 import update_data
+import threading
 
 data = []
 databig = []
@@ -19,6 +20,14 @@ intradesymbol=-1
 filetime = 0
 symbolintrade = -1
 file = open('log.txt' , 'w')
+
+def update(symboli , datai , timestampi ,nextcallbigi , databigi):
+	global data
+	global nextcall
+	global databig
+	global nextcallbig
+	[data[i] , nextcall , databig[i] , nextcallbig] = update_data.update_data(symboli , datai ,timestampi , nextcallbigi , databigi)
+
 
 
 for i in range(define.symbolnumber):
@@ -36,8 +45,13 @@ while 1 :
 	print(now)
 	timestamp = datetime.timestamp(now)*1000
 	if(timestamp > nextcall + 100):
+		tdata = []
 		for i in range(define.symbolnumber):
-			[data[i] , nextcall , databig[i] , nextcallbig] = update_data.update_data(define.symbolname[i] , data[i] ,timestamp , nextcallbig , databig[i])
+			tdata.append( threading.Thread(target = update , args =[define.symbolname[i] , data[i] ,timestamp , nextcallbig , databig[i]] ))
+		for i in range(define.symbolnumber):
+			tdata[i].start()
+		for i in range(define.symbolnumber):
+			tdata[i].join()
 		[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade)
 		fileflag = 0
 		orderflag = 0
