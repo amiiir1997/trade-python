@@ -34,7 +34,7 @@ def update_data(symbol ,data , timestamp , nextcallbig , databig):
 		i = 0
 		while i == 0:
 			try:
-				result =requests.get('https://testnet.binancefuture.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalbig , 'limit' : 2}).json()
+				result =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalbig , 'limit' : 2}).json()
 				i = 1
 			except Exception as e:
 				print('connection error')

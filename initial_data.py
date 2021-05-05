@@ -7,7 +7,7 @@ def initial_data(symbol):
 	i = 0
 	while i == 0:
 		try:
-			resultsmall =requests.get('https://testnet.binancefuture.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalsmall , 'limit' : 1000}).json()
+			resultsmall =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalsmall , 'limit' : 1000}).json()
 			i = 1
 		except Exception as e:
 			print('connection error')
@@ -16,7 +16,7 @@ def initial_data(symbol):
 	i = 0
 	while i == 0:
 		try:
-			resultbig =requests.get('https://testnet.binancefuture.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalbig , 'limit' : 1000}).json()
+			resultbig =requests.get('https://fapi.binance.com/fapi/v1/klines',{'symbol' : symbol , 'interval' : define.intervalbig , 'limit' : 1000}).json()
 			i = 1
 		except Exception as e:
 			print('connection error')
@@ -31,7 +31,7 @@ def initial_data(symbol):
 	x18= 2 / 19
 
 
-	for i in range (998):
+	for i in range (999):
 		data[define.ema52] = data[define.ema52]*(1-x52) + float(resultsmall[i][4])*x52
 		data[define.ema24] = data[define.ema24]*(1-x24) + float(resultsmall[i][4])*x24
 		data[define.signal18] = data[define.signal18]*(1-x18) + (data[define.ema24]-data[define.ema52])*x18

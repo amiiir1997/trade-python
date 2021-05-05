@@ -1,10 +1,10 @@
 import key
 
-symbolnumber = 14
-symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT" , "EOSUSDT" , "DOTUSDT" , "LINKUSDT" , "DOGEUSDT","1INCHUSDT" , "BCHUSDT" , "XLMUSDT" , "ETCUSDT" , "SXPUSDT"]
-symbollimit = [2 , 0 , 1 , 1 , 2 , 1 , 1 , 2 , 0 , 0 , 3 , 0 , 2 , 1]
-simbollimitstring = ["%.2f" , "%.0f" , "%.1f" , "%.1f" , "%.2f" , "%.1f" , "%.1f" , "%.2f" , "%.0f" , "%.0f" , "%.3f" , "%.0f" , "%.2f" , "%.1f"]
-symbolpricelimit = ['%3.2f',"%1.5f","%2.4f","%1.4f","%1.3f", "%.3f" , "%.3f" , "%.3f" , "%.6f" , "%.4f" , "%.2f", "%.5f","%.3f" , "%.4f"]
+symbolnumber = 15
+symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT" , "EOSUSDT" , "DOTUSDT" , "LINKUSDT" , "DOGEUSDT","1INCHUSDT" , "BCHUSDT" , "XLMUSDT" , "ETCUSDT" , "SXPUSDT" , 'LTCUSDT']
+symbollimit = [2 , 0 , 1 , 1 , 2 , 1 , 1 , 2 , 0 , 0 , 3 , 0 , 2 , 1 , 3]
+simbollimitstring = ["%.2f" , "%.0f" , "%.1f" , "%.1f" , "%.2f" , "%.1f" , "%.1f" , "%.2f" , "%.0f" , "%.0f" , "%.3f" , "%.0f" , "%.2f" , "%.1f" , "%.3f"]
+symbolpricelimit = ['%3.2f',"%1.5f","%2.4f","%1.4f","%1.3f", "%.3f" , "%.3f" , "%.3f" , "%.6f" , "%.4f" , "%.2f", "%.5f","%.3f" , "%.4f" , "%.2f"]
 
 
 

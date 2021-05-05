@@ -48,7 +48,6 @@ while 1 :
 	print(now)
 	timestamp = datetime.timestamp(now)*1000
 	if(timestamp > nextcall + 100):
-		tdata = []
 		for i in range(define.symbolnumber):
 			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] , data[i] ,timestamp , nextcallbig , databig[i]] )
 		for i in range(define.symbolnumber):
