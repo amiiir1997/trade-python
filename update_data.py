@@ -30,9 +30,9 @@ def update_data(symbol ,data , timestamp , nextcallbig , databig):
 	data[define.lastramp] = data[define.ramp]
 	data[define.ramp] = (data[define.macd][3]-data[define.macd][2])*3 + (data[define.macd][3]-data[define.macd][1]) + (data[define.macd][3]-data[define.macd][0])/3
 	
-	data[define.bigmadata][data[define.bigmaindex]] = float(resultsmall[0][4])
+	data[define.bigmadata][data[define.bigmaindex]] = float(result[0][4])
 	data[define.bigmaindex] = (data[define.bigmaindex] +1) % define.bigmacount
-	data[define.smallmadata][data[define.smallmaindex]] = float(resultsmall[0][4])
+	data[define.smallmadata][data[define.smallmaindex]] = float(result[0][4])
 	data[define.smallmaindex] = (data[define.smallmaindex] +1) % define.smallmacount
 
 	data[define.smallma] = 0

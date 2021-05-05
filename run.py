@@ -22,13 +22,18 @@ symbolintrade = -1
 file = open('log.txt' , 'w')
 initialsignal = 1
 tdata = []
+lock = threading.Lock()
 
-def update(symboli , datai , timestampi ,nextcallbigi , databigi):
+def update(symboli , datai , timestampi ,nextcallbigi , databigi ,i):
 	global data
 	global nextcall
 	global databig
 	global nextcallbig
-	[data[i] , nextcall , databig[i] , nextcallbig] = update_data.update_data(symboli , datai ,timestampi , nextcallbigi , databigi)
+	[tdata , tnextcall , tdatabig , tnextcallbig] = update_data.update_data(symboli , datai ,timestampi , nextcallbigi , databigi)
+	lock.acquire()
+	[data[i] , nextcall , databig[i] , nextcallbig] = [tdata , tnextcall , tdatabig , tnextcallbig]
+	lock.release()
+
 
 
 
@@ -50,7 +55,7 @@ while 1 :
 	timestamp = datetime.timestamp(now)*1000
 	if(timestamp > nextcall + 100):
 		for i in range(define.symbolnumber):
-			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] , data[i] ,timestamp , nextcallbig , databig[i]] )
+			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] , data[i] ,timestamp , nextcallbig , databig[i] , i])
 		for i in range(define.symbolnumber):
 			tdata[i].start()
 		for i in range(define.symbolnumber):
