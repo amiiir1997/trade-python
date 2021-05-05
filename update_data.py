@@ -44,6 +44,7 @@ def update_data(symbol ,data , timestamp , nextcallbig , databig):
 		databig[define.bigema52] = databig[define.bigema52]*(1-x52) + float(result[0][4])*x52
 		databig[define.bigema24] = databig[define.bigema24]*(1-x24) + float(result[0][4])*x24
 		databig[define.bigsignal18] = databig[define.bigsignal18]*(1-x18) +  (databig[define.bigema24] - databig[define.bigema52])*x18
+		databig[define.bigtwolasthistogram] =databig[define.biglasthistogram] 
 		databig[define.biglasthistogram] = databig[define.bighistogram]
 		databig[define.bighistogram] = databig[define.bigema24] - databig[define.bigema52] - databig[define.bigsignal18]
 		nextcallbig = result[1][6]+1

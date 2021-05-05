@@ -21,6 +21,7 @@ bigema24 = 1
 bigsignal18 =2
 bighistogram = 3
 biglasthistogram = 4
+bigtwolasthistogram = 4
 
 
 position = 0
