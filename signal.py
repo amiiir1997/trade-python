@@ -13,7 +13,7 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 		file.write(str(symbol))
 		file.write('\n')
 		sleep = 0
-		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.09 or databig[define.biglasthistogram]  > databig[define.bighistogram] or databig[define.bigtwolasthistogram] > databig[define.bighistogram]  or initialsignal == 1:
+		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.11 or databig[define.biglasthistogram]  > databig[define.bighistogram] or databig[define.bigtwolasthistogram] > databig[define.bighistogram]  or initialsignal == 1 or data[define.smallma] > data[define.bigma]:
 			sleep =1
 	elif histogram < 0 and position[define.position] != "SHORT":
 		signal = 'SELL'
@@ -21,7 +21,7 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 		file.write(str(symbol))
 		file.write('\n')
 		sleep = 0
-		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.09 or databig[define.biglasthistogram]  < databig[define.bighistogram] or databig[define.bigtwolasthistogram] < databig[define.bighistogram] or initialsignal == 1:
+		if abs(data[define.lastramp]-data[define.ramp])/data[define.price] /3000 * 1000000 < 0.11 or databig[define.biglasthistogram]  < databig[define.bighistogram] or databig[define.bigtwolasthistogram] < databig[define.bighistogram] or initialsignal == 1 or data[define.smallma] < data[define.bigma]:
 			sleep = 1
 
 

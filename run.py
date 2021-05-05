@@ -41,6 +41,7 @@ for i in range(define.symbolnumber):
 	sleep.append(0)
 	tdata.append(threading.Thread(target = update , args =["a", 0,0 ,0 , 0] ))
 
+
 fileflag = 0
 orderflag = 0
 while 1 :

@@ -2,7 +2,13 @@ import requests
 import define
 
 def initial_data(symbol):
-	data=[0,0,0,[0,0,0,0],0,0,0]
+	data=[0,0,0,[0,0,0,0],0,0,0 ,0,0,0,0 ,[] ,[]]
+	for j in range(define.bigmacount):
+		data[define.bigmadata].append(0)
+	for j in range(define.smallmacount):
+		data[define.smallmadata].append(0)
+
+
 	databig = [0,0,0,0,0,0]
 	i = 0
 	while i == 0:
@@ -42,6 +48,10 @@ def initial_data(symbol):
 		data[define.lastramp] = data[define.ramp]
 		data[define.price] = float(resultsmall[i][4])
 		data[define.ramp] = (data[define.macd][3]-data[define.macd][2])*3 + (data[define.macd][3]-data[define.macd][1]) + (data[define.macd][3]-data[define.macd][0])/3
+		data[define.bigmadata][data[define.bigmaindex]] = float(resultsmall[i][4])
+		data[define.bigmaindex] = (data[define.bigmaindex] +1) % define.bigmacount
+		data[define.smallmadata][data[define.smallmaindex]] = float(resultsmall[i][4])
+		data[define.smallmaindex] = (data[define.smallmaindex] +1) % define.smallmacount
 
 
 		databig[define.bigema52] = databig[define.bigema52]*(1-x52) + float(resultbig[i][4])*x52
@@ -51,6 +61,11 @@ def initial_data(symbol):
 		databig[define.biglasthistogram] = databig[define.bighistogram]
 		databig[define.bighistogram] = databig[define.bigema24] - databig[define.bigema52] - databig[define.bigsignal18]
 
+
+	for i in range(define.smallmacount):
+		data[define.smallma] = data[define.smallma] + data[define.smallmadata][i] / define.smallmacount
+	for i in range(define.bigmacount):
+		data[define.bigma] = data[define.bigma] + data[define.bigmadata][i] / define.bigmacount
 
 	nextcallsmall = resultsmall[999][6]+1
 	nextcallbig = resultbig[999][6]+1

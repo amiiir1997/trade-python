@@ -15,6 +15,16 @@ macd =3
 ramp = 4
 lastramp = 5
 price = 6
+smallma = 7
+smallmaindex = 8
+bigma = 9
+bigmaindex = 10
+smallmadata = 11
+bigmadata = 12
+
+
+smallmacount = 13
+bigmacount = 25 
 
 bigema52 = 0
 bigema24 = 1
