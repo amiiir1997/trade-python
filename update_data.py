@@ -26,6 +26,8 @@ def update_data(symbol ,data , timestamp , nextcallbig , databig):
 	data[define.macd][1] = data[define.macd][2] 
 	data[define.macd][2] = data[define.macd][3] 
 	data[define.macd][3] = data[define.ema24]-data[define.ema52]
+
+	
 	data[define.price] = float(result[1][4])
 	data[define.lastramp] = data[define.ramp]
 	data[define.ramp] = (data[define.macd][3]-data[define.macd][2])*3 + (data[define.macd][3]-data[define.macd][1]) + (data[define.macd][3]-data[define.macd][0])/3
