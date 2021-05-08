@@ -7,9 +7,9 @@ import update_data
 
 
 
-def core( data , databig ,position , signalresult , sleep ,balance , intrade ,file ,symbolintrade , initialsignal):
+def core( data , databig ,position , signalresult , sleep ,balance , intrade ,file ,symbolintrade , initialsignal , datasmall):
 	for i in range(define.symbolnumber):
-		[signalresult[i] , sleep[i]] = signal.signal(define.symbolname[i] , data[i] , databig[i] , position[i] , signalresult[i] ,sleep[i] ,file , initialsignal)
+		[signalresult[i] , sleep[i]] = signal.signal(define.symbolname[i] , data[i] , databig[i] , position[i] , signalresult[i] ,sleep[i] ,file , initialsignal , datasmall[i])
 	for i in range(define.symbolnumber):
 		if(signalresult[i] != 'NOTHING'):
 			if (position[i][define.quantity] != 0):

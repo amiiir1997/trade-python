@@ -1,6 +1,6 @@
 import define
 
-def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsignal):
+def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsignal ,datasmall):
 	histogram = data[define.ema24] - data[define.ema52] - data[define.signal18]
 	file.write(str(symbol))
 	file.write (' histogram = ')
@@ -19,7 +19,7 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 			file.write('\n')
 		if databig[define.biglasthistogram]  > databig[define.bighistogram] or databig[define.bigtwolasthistogram] > databig[define.bighistogram] :
 			sleep =1
-			file.write ('sleep for big signal')
+			file.write ('sleep for 30min histogram')
 			file.write('\n')
 		if initialsignal == 1 :
 			sleep =1
@@ -27,8 +27,17 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 			file.write('\n')
 		if data[define.smallma] < data[define.bigma] :
 			sleep =1
-			file.write ('sleep for ma')
+			file.write ('sleep for 5min  ma')
 			file.write('\n')
+		if databig [define.bigmacdramp] - databig [define.bigsignalramp] < 0:
+			sleep =1
+			file.write ('sleep for 30min macd-signal ramp')
+			file.write('\n')
+		if datasmall[define.smallbigmaramp] > datasmall[define.smallsmallmaramp]:
+			sleep =1
+			file.write ('sleep for 1min ma ramp')
+			file.write('\n')
+
 	elif histogram < 0 and position[define.position] != "SHORT":
 		signal = 'SELL'
 		file.write ('signal sell on ')
@@ -41,7 +50,7 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 			file.write('\n')
 		if databig[define.biglasthistogram]  < databig[define.bighistogram] or databig[define.bigtwolasthistogram] < databig[define.bighistogram] :
 			sleep =1
-			file.write ('sleep for big signal')
+			file.write ('sleep for 30min histogram')
 			file.write('\n')
 		if initialsignal == 1 :
 			sleep =1
@@ -49,9 +58,16 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 			file.write('\n')
 		if data[define.smallma] > data[define.bigma] :
 			sleep =1
-			file.write ('sleep for ma')
+			file.write ('sleep for 5min ma')
 			file.write('\n')
-
+		if databig [define.bigmacdramp] - databig [define.bigsignalramp] > 0:
+			sleep =1
+			file.write ('sleep for 30min macd-signal ramp')
+			file.write('\n')
+		if datasmall[define.smallbigmaramp] < datasmall[define.smallsmallmaramp]:
+			sleep =1
+			file.write ('sleep for 1min ma ramp')
+			file.write('\n')
 
 
 	return [ signal , sleep ]

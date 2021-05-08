@@ -11,6 +11,7 @@ import threading
 
 data = []
 databig = []
+datasmall = []
 position = []
 signal = []
 sleep = []
@@ -24,23 +25,27 @@ initialsignal = 1
 tdata = []
 lock = threading.Lock()
 
-def update(symboli , datai , timestampi ,nextcallbigi , databigi ,i):
+
+def update(symboli ,nextcalli, datai , timestampi ,nextcallbigi , databigi ,nextcallsmalli ,datasmalli , i):
 	global data
 	global nextcall
 	global databig
 	global nextcallbig
-	[tdata , tnextcall , tdatabig , tnextcallbig] = update_data.update_data(symboli , datai ,timestampi , nextcallbigi , databigi)
+	global datasmall
+	global nextcallsmall
+	[tdata , tnextcall , tdatabig , tnextcallbig , tsmalldata , tnextcallsmall] = update_data.update_data(symboli ,nextcalli, datai ,timestampi , nextcallbigi , databigi , nextcallsmalli , datasmalli)
 	lock.acquire()
-	[data[i] , nextcall , databig[i] , nextcallbig] = [tdata , tnextcall , tdatabig , tnextcallbig]
+	[data[i] , nextcall , databig[i] , nextcallbig , datasmall[i] , nextcallsmall] = [tdata , tnextcall , tdatabig ,tnextcallbig, tsmalldata , tnextcallsmall]
 	lock.release()
 
 
 
 
 for i in range(define.symbolnumber):
-	[tempdata, nextcall , tempdatabig , nextcallbig] =initial_data.initial_data(define.symbolname[i])
+	[tempdata, nextcall , tempdatabig , nextcallbig , tempdatasmall , nextcallsmall] =initial_data.initial_data(define.symbolname[i])
 	data.append(tempdata)
 	databig.append(tempdatabig)
+	datasmall.append(tempdatasmall)
 	position.append(["INITIAL",0,1,0,0,0,0,0,0,0])
 	signal.append('NOTHING')
 	sleep.append(0)
@@ -53,17 +58,20 @@ while 1 :
 	now = datetime.now()
 	print(now)
 	timestamp = datetime.timestamp(now)*1000
-	if(timestamp > nextcall + 100):
+
+	if(timestamp > nextcallsmall + 100):
+		nextcalltemp = nextcall
 		for i in range(define.symbolnumber):
-			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] , data[i] ,timestamp , nextcallbig , databig[i] , i])
+			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] ,nextcall, data[i] ,timestamp , nextcallbig , databig[i] , nextcallsmall , datasmall[i] , i])
 		for i in range(define.symbolnumber):
 			tdata[i].start()
 		for i in range(define.symbolnumber):
 			tdata[i].join()
-		[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade , initialsignal)
-		fileflag = 0
-		orderflag = 0
-		initialsignal = 0
+		if(timestamp > nextcalltemp):
+			[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade , initialsignal , datasmall)
+			fileflag = 0
+			orderflag = 0
+			initialsignal = 0
 	if(timestamp > nextcall - 2000 and orderflag == 0):
 		i = 0
 		while i == 0:
