@@ -2,7 +2,7 @@ import requests
 import define
 
 def initial_data(symbol):
-	data=[0,0,0,[0,0,0,0],0,0,0 ,0,0,0,0 ,[] ,[] ,[0,0,0,0]]
+	data=[0,0,0,[0,0,0,0],0,0,0 ,0,0,0,0 ,[] ,[] ,[0,0,0,0],[],0,0]
 	databig = [0,0,0,0,0,0 , [0,0,0,0] , [0,0,0,0] , 0 , 0]
 	datasmall =[ [] , [] , 0 ,0 ,[0,0,0,0] ,[0,0,0,0] ,0 , 0]
 
@@ -15,6 +15,9 @@ def initial_data(symbol):
 		datasmall[define.smallsmallmadata].append(0)
 	for j in range(define.smallbigmacount):
 		datasmall[define.smallbigmadata].append(0)
+
+	for j in range(define.rsinumber):
+		data[define.pricedata].append(0)
 
 	
 	i = 0
@@ -67,6 +70,8 @@ def initial_data(symbol):
 		data[define.hostogramhistory][1] = data[define.hostogramhistory][2]
 		data[define.hostogramhistory][2] = data[define.hostogramhistory][3]
 		data[define.hostogramhistory][3] = data[define.ema24] - data[define.ema52] - data[define.signal18]
+		data[define.pricedata][data[define.priceindex]] = float(result[i][4])
+		data[define.priceindex] = (data[define.priceindex] + 1)%define.rsinumber
 
 
 		data[define.bigmadata][data[define.bigmaindex]] = float(result[i][4])

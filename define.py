@@ -1,10 +1,10 @@
 import key
 
-symbolnumber = 15
+symbolnumber = 1
 symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT" , "EOSUSDT" , "DOTUSDT" , "LINKUSDT" , "DOGEUSDT","1INCHUSDT" , "BCHUSDT" , "XLMUSDT" , "ETCUSDT" , "SXPUSDT" , 'LTCUSDT']
 symbollimit = [2 , 0 , 1 , 1 , 2 , 1 , 1 , 2 , 0 , 0 , 3 , 0 , 2 , 1 , 3]
 simbollimitstring = ["%.2f" , "%.0f" , "%.1f" , "%.1f" , "%.2f" , "%.1f" , "%.1f" , "%.2f" , "%.0f" , "%.0f" , "%.3f" , "%.0f" , "%.2f" , "%.1f" , "%.3f"]
-symbolpricelimit = ['%.2f',"%1.5f","%2.4f","%1.4f","%1.3f", "%.3f" , "%.3f" , "%.3f" , "%.6f" , "%.4f" , "%.2f", "%.5f","%.3f" , "%.4f" , "%.2f"]
+symbolpricelimit = ['%.2f',"%1.5f","%2.3f","%1.4f","%1.3f", "%.3f" , "%.3f" , "%.3f" , "%.6f" , "%.4f" , "%.2f", "%.5f","%.3f" , "%.4f" , "%.2f"]
 
 
 
@@ -22,6 +22,9 @@ bigmaindex = 10
 smallmadata = 11
 bigmadata = 12
 hostogramhistory = 13
+pricedata = 14
+priceindex = 15
+rsi = 16
 
 smallmacount = 5
 bigmacount = 20
@@ -67,6 +70,7 @@ secret_key = key.secret_key
 
 smallsmallmacount = 5
 smallbigmacount = 23
+rsinumber = 7
 
 smallsmallmadata = 0
 smallbigmadata = 1

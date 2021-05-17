@@ -22,6 +22,10 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 			sleep =1
 			file.write ('sleep for 30min histogram')
 			file.write('\n')
+		if data[define.rsi] > 80 : 
+			sleep =1
+			file.write ('sleep for rsi')
+			file.write('\n')
 		#if initialsignal == 1 :
 		#	sleep =1
 		#	file.write ('sleep for initial')
@@ -53,6 +57,10 @@ def signal(symbol ,data ,databig , position , signal, sleep , file ,initialsigna
 		if databig[define.biglasthistogram]  < databig[define.bighistogram] or databig[define.bigtwolasthistogram] < databig[define.bighistogram] :
 			sleep =1
 			file.write ('sleep for 30min histogram')
+			file.write('\n')
+		if data[define.rsi] < 20 : 
+			sleep =1
+			file.write ('sleep for rsi')
 			file.write('\n')
 		#if initialsignal == 1 :
 		#	sleep =1

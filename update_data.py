@@ -1,6 +1,17 @@
 import define
 import requests
 
+def rsi(pricedata , index):
+	up = 0
+	down = 0
+	for i in range (define.rsinumber-1):
+		if (pricedata[(index+2+i)%define.rsinumber] - pricedata[(index + i +1) % define.rsinumber]) > 0 :
+			up = up + (pricedata[(index+2+i)%define.rsinumber] - pricedata[(index + i +1) % define.rsinumber])
+		else :
+			down = down - (pricedata[(index+2+i)%define.rsinumber] - pricedata[(index + i +1) % define.rsinumber])
+	rsi = 100 - 100 /(1+ (up / down))
+	return rsi
+
 
 def update_data(symbol ,nextcall,data , timestamp , nextcallbig , databig , nextcallsmall , datasmall):
 
@@ -63,6 +74,12 @@ def update_data(symbol ,nextcall,data , timestamp , nextcallbig , databig , next
 		data[define.hostogramhistory][1] = data[define.hostogramhistory][2]
 		data[define.hostogramhistory][2] = data[define.hostogramhistory][3]
 		data[define.hostogramhistory][3] = data[define.ema24] - data[define.ema52] - data[define.signal18]
+
+
+		data[define.pricedata][data[define.priceindex]] = float(result[0][4])
+		data[define.priceindex] = (data[define.priceindex] + 1)%define.rsinumber
+		data[define.rsi] = rsi(data[define.pricedata] , data[define.priceindex])
+
 
 		data[define.bigmadata][data[define.bigmaindex]] = float(result[i][4])
 		data[define.bigmaindex] = (data[define.bigmaindex] +1) % define.bigmacount
