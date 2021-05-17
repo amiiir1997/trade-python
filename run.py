@@ -35,7 +35,7 @@ def update(symboli ,nextcalli, datai , timestampi ,nextcallbigi , databigi ,next
 	global nextcallsmall
 	[tdata , tnextcall , tdatabig , tnextcallbig , tsmalldata , tnextcallsmall] = update_data.update_data(symboli ,nextcalli, datai ,timestampi , nextcallbigi , databigi , nextcallsmalli , datasmalli)
 	lock.acquire()
-	[data[i] , nextcall , databig[i] , nextcallbig , datasmall[i] , nextcallsmall] = [tdata , tnextcall , tdatabig ,tnextcallbig, tsmalldata , tnextcallsmall]
+	[data[i] , z , databig[i] , y , datasmall[i] , x] = [tdata , tnextcall , tdatabig ,tnextcallbig, tsmalldata , tnextcallsmall]
 	lock.release()
 
 
@@ -59,19 +59,22 @@ while 1 :
 	print(now)
 	timestamp = datetime.timestamp(now)*1000
 
-	if(timestamp > nextcallsmall + 100):
-		nextcalltemp = nextcall
+	if(timestamp > nextcallsmall + 300):
 		for i in range(define.symbolnumber):
 			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] ,nextcall, data[i] ,timestamp , nextcallbig , databig[i] , nextcallsmall , datasmall[i] , i])
 		for i in range(define.symbolnumber):
 			tdata[i].start()
 		for i in range(define.symbolnumber):
 			tdata[i].join()
-		if(timestamp > nextcalltemp):
+		nextcallsmall = nextcallsmall + 60000
+		if(timestamp > nextcall):
 			[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade , initialsignal , datasmall)
+			nextcall = nextcall + 60000 * 5
 			fileflag = 0
 			orderflag = 0
 			initialsignal = 0
+		if(timestamp > nextcallbig):
+			nextcallbig = nextcallbig + 60000 * 30
 	if(timestamp > nextcall - 2000 and orderflag == 0):
 		i = 0
 		while i == 0:

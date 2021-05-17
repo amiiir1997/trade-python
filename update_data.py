@@ -8,7 +8,7 @@ def update_data(symbol ,nextcall,data , timestamp , nextcallbig , databig , next
 	x24= 2 / 13
 	x18= 2 / 10
 
-	if(timestamp > nextcallsmall):
+	if(timestamp > nextcallsmall) and 0:
 		i = 0
 		while i == 0:
 			try:
@@ -59,7 +59,10 @@ def update_data(symbol ,nextcall,data , timestamp , nextcallbig , databig , next
 		data[define.lastramp] = data[define.ramp]
 		data[define.price] = float(result[0][4])
 		data[define.ramp] = (data[define.macd][3]-data[define.macd][2])*3 + (data[define.macd][3]-data[define.macd][1]) + (data[define.macd][3]-data[define.macd][0])/3
-		
+		data[define.hostogramhistory][0] = data[define.hostogramhistory][1]
+		data[define.hostogramhistory][1] = data[define.hostogramhistory][2]
+		data[define.hostogramhistory][2] = data[define.hostogramhistory][3]
+		data[define.hostogramhistory][3] = data[define.ema24] - data[define.ema52] - data[define.signal18]
 
 		data[define.bigmadata][data[define.bigmaindex]] = float(result[i][4])
 		data[define.bigmaindex] = (data[define.bigmaindex] +1) % define.bigmacount
@@ -68,6 +71,7 @@ def update_data(symbol ,nextcall,data , timestamp , nextcallbig , databig , next
 		data[define.smallma] = sum( data[define.smallmadata]) / define.smallmacount
 		data[define.bigma] = sum( data[define.bigmadata]) / define.bigmacount
 		nextcall = result[1][6] +1
+		nextcallsmall = result[1][6] +1
 		print('data updated')
 
 

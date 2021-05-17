@@ -1,6 +1,6 @@
 import key
 
-symbolnumber = 1
+symbolnumber = 15
 symbolname=["BNBUSDT" , "ADAUSDT" , "WAVESUSDT", "XRPUSDT", "NEOUSDT" , "EOSUSDT" , "DOTUSDT" , "LINKUSDT" , "DOGEUSDT","1INCHUSDT" , "BCHUSDT" , "XLMUSDT" , "ETCUSDT" , "SXPUSDT" , 'LTCUSDT']
 symbollimit = [2 , 0 , 1 , 1 , 2 , 1 , 1 , 2 , 0 , 0 , 3 , 0 , 2 , 1 , 3]
 simbollimitstring = ["%.2f" , "%.0f" , "%.1f" , "%.1f" , "%.2f" , "%.1f" , "%.1f" , "%.2f" , "%.0f" , "%.0f" , "%.3f" , "%.0f" , "%.2f" , "%.1f" , "%.3f"]
@@ -21,6 +21,7 @@ bigma = 9
 bigmaindex = 10
 smallmadata = 11
 bigmadata = 12
+hostogramhistory = 13
 
 smallmacount = 5
 bigmacount = 20
