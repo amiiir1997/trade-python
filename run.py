@@ -11,13 +11,11 @@ import threading
 
 data = []
 databig = []
-datasmall = []
 position = []
 signal = []
 sleep = []
 balancemoney = 0
 intrade = 0
-intradesymbol=-1
 filetime = 0
 symbolintrade = -1
 file = open('log.txt' , 'w')
@@ -26,26 +24,23 @@ tdata = []
 lock = threading.Lock()
 
 
-def update(symboli ,nextcalli, datai , timestampi ,nextcallbigi , databigi ,nextcallsmalli ,datasmalli , i):
+def update(symboli ,nextcalli, datai , timestampi ,nextcallbigi , databigi , i):
 	global data
 	global nextcall
 	global databig
 	global nextcallbig
-	global datasmall
-	global nextcallsmall
-	[tdata , tnextcall , tdatabig , tnextcallbig , tsmalldata , tnextcallsmall] = update_data.update_data(symboli ,nextcalli, datai ,timestampi , nextcallbigi , databigi , nextcallsmalli , datasmalli)
+	[tdata , tnextcall , tdatabig , tnextcallbig] = update_data.update_data(symboli ,nextcalli, datai ,timestampi , nextcallbigi , databigi)
 	lock.acquire()
-	[data[i] , z , databig[i] , y , datasmall[i] , x] = [tdata , tnextcall , tdatabig ,tnextcallbig, tsmalldata , tnextcallsmall]
+	[data[i] , z , databig[i] , y] = [tdata , tnextcall , tdatabig ,tnextcallbig]
 	lock.release()
 
 
 
 
 for i in range(define.symbolnumber):
-	[tempdata, nextcall , tempdatabig , nextcallbig , tempdatasmall , nextcallsmall] =initial_data.initial_data(define.symbolname[i])
+	[tempdata, nextcall , tempdatabig , nextcallbig] =initial_data.initial_data(define.symbolname[i])
 	data.append(tempdata)
 	databig.append(tempdatabig)
-	datasmall.append(tempdatasmall)
 	position.append(["INITIAL",0,1,0,0,0,0,0,0,0])
 	signal.append('NOTHING')
 	sleep.append(0)
@@ -59,22 +54,20 @@ while 1 :
 	print(now)
 	timestamp = datetime.timestamp(now)*1000
 
-	if(timestamp > nextcallsmall + 300):
+	if(timestamp > nextcall + 100):
 		for i in range(define.symbolnumber):
-			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] ,nextcall, data[i] ,timestamp , nextcallbig , databig[i] , nextcallsmall , datasmall[i] , i])
+			tdata[i] = threading.Thread(target = update , args =[define.symbolname[i] ,nextcall, data[i] ,timestamp , nextcallbig , databig[i] , i])
 		for i in range(define.symbolnumber):
 			tdata[i].start()
 		for i in range(define.symbolnumber):
 			tdata[i].join()
-		nextcallsmall = nextcallsmall + 60000
-		if(timestamp > nextcall):
-			[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade , initialsignal , datasmall)
-			nextcall = nextcall + 60000 * 5
-			fileflag = 0
-			orderflag = 0
-			initialsignal = 0
+		[position , signal , sleep , intrade , symbolintrade] = core.core( data , databig ,position , signal , sleep ,balancemoney , intrade ,file , symbolintrade , initialsignal)
+		fileflag = 0
+		orderflag = 0
+		initialsignal = 0
+		nextcall = nextcall + 60000 * 5
 		if(timestamp > nextcallbig):
-			nextcallbig = nextcallbig + 60000 * 30
+			nextcallbig = nextcallbig + 60000 *30
 	if(timestamp > nextcall - 2000 and orderflag == 0):
 		i = 0
 		while i == 0:
@@ -91,6 +84,7 @@ while 1 :
 				print(symbolintrade)
 				cancelorders.cancelorders(define.symbolname[symbolintrade] , file)
 				position[symbolintrade][define.sleep] = 1
+				sleep[symbolintrade] = 1
 				symbolintrade = -1
 				intrade=0
 				print("limit close")
@@ -116,4 +110,4 @@ while 1 :
 		file.close()
 		file = open('log.txt', 'a')
 		fileflag = 1
-	time.sleep(0.5)
+	time.sleep(0.3)
